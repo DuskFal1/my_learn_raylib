@@ -1,0 +1,35 @@
+# Игнорируемые файлы
+build/
+*.o
+*.out
+my_game
+*.app
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Ресурсы (можно хранить в Git если маленькие, но обычно лучше отдельно)
+assets/textures/*.png
+assets/sounds/*.wav
+assets/music/*.mp3
+
+# Системные файлы macOS
+*.dSYM/
+Thumbs.db
+
+# Временные файлы
+*.tmp
+*.temp
+
+# Файлы сборки
+*.dll
+*.so
+*.dylib
+*.exe
+
+# Логи
+*.log
+debug.log
