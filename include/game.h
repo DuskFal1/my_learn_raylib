@@ -7,30 +7,17 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define FPS 60
-#define BALL_RADIUS 20
-#define GRAVITY 0.5f
-#define JUMP_FORCE -12.0f
-#define GROUND_Y 500
+#define TREANGLE_RADIUS 20
 
-// Структура шарика
+// Структура игрока 
 typedef struct {
-    Vector2 position;
-    Vector2 velocity;
-    Color color;
-    bool is_on_ground;
-} Ball;
+    Vector2 position;    // Позиция на экране
+    float size;          // Размер треугольника
+    float angle;
+    Color color;         // Цвет
+} Player;
 
-// Структура игры
-typedef struct {
-    Ball ball;
-    int score;
-    bool game_over;
-} GameState;
-
-// Прототипы функций
-void init_game(GameState* state);
-void update_game(GameState* state);
-void draw_game(GameState* state);
-void handle_input(GameState* state);
-
+Player CreatePlayer(Vector2 startPosition, float size, Color color);
+void gameDraw();
+void DrawPlayer(Player player);
 #endif

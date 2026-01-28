@@ -1,91 +1,49 @@
 #include "game.h"
 #include <stdio.h>
+#include <math.h>
 
-void init_game(GameState* state) {
-    // Инициализация шарика
-    state->ball.position = (Vector2){SCREEN_WIDTH/2, GROUND_Y - BALL_RADIUS};
-    state->ball.velocity = (Vector2){0, 0};
-    state->ball.color = MAROON;
-    state->ball.is_on_ground = true;
+void gameDraw(){
+    //DrawText("Hello", SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 20, BLACK);
+
     
-    // Инициализация счета
-    state->score = 0;
-    state->game_over = false;
 }
 
-void handle_input(GameState* state) {
-    if (state->game_over) return;
-    
-    // Прыжок при нажатии пробела
-    if (IsKeyPressed(KEY_SPACE) && state->ball.is_on_ground) {
-        state->ball.velocity.y = JUMP_FORCE;
-        state->ball.is_on_ground = false;
-        state->score += 10;
+Player CreatePlayer(Vector2 startPosition, float size, Color color) {
+        Player player = {
+            .position = startPosition,
+            .angle = -1.5708f,       // Смотрит вправо
+            .size = size,
+            .color = color
+        };
+    return player;
     }
-    
-    // Движение влево/вправо
-    if (IsKeyDown(KEY_RIGHT)) {
-        state->ball.position.x += 5;
-        if (state->ball.position.x > SCREEN_WIDTH - BALL_RADIUS) {
-            state->ball.position.x = SCREEN_WIDTH - BALL_RADIUS;
-        }
-    }
-    if (IsKeyDown(KEY_LEFT)) {
-        state->ball.position.x -= 5;
-        if (state->ball.position.x < BALL_RADIUS) {
-            state->ball.position.x = BALL_RADIUS;
-        }
-    }
-    
-    // Рестарт игры
-    if (IsKeyPressed(KEY_R)) {
-        init_game(state);
-    }
-}
 
-void update_game(GameState* state) {
-    if (state->game_over) return;
+// Отрисовка игрока на экране
+void DrawPlayer(Player player) {
+    // Вычисляем три вершины треугольника
+    Vector2 points[3];
     
-    // Физика шарика
-    state->ball.velocity.y += GRAVITY;
-    state->ball.position.y += state->ball.velocity.y;
+    // Вершина 1: Нос (12 часов)
+    points[0].x = player.position.x + cosf(player.angle) * player.size;
+    points[0].y = player.position.y + sinf(player.angle) * player.size;
     
-    // Проверка земли
-    if (state->ball.position.y >= GROUND_Y - BALL_RADIUS) {
-        state->ball.position.y = GROUND_Y - BALL_RADIUS;
-        state->ball.velocity.y = 0;
-        state->ball.is_on_ground = true;
-    }
+    // Вершина 2: Правое крыло (4 часа) 
+    // Угол -2.5 радиана ≈ -143° от носа
+    points[1].x = player.position.x + cosf(player.angle - 2.5f) * player.size;
+    points[1].y = player.position.y + sinf(player.angle - 2.5f) * player.size;
     
-    // Проверка проигрыша (упал в яму)
-    if (state->ball.position.y > SCREEN_HEIGHT) {
-        state->game_over = true;
-    }
+    // Вершина 3: Левое крыло (8 часов)
+    // Угол +2.5 радиана ≈ +143° от носа
+    points[2].x = player.position.x + cosf(player.angle + 2.5f) * player.size;
+    points[2].y = player.position.y + sinf(player.angle + 2.5f) * player.size;
     
-    // Генерация препятствий (позже добавим)
-}
-
-void draw_game(GameState* state) {
-    // Отрисовка земли
-    DrawRectangle(0, GROUND_Y, SCREEN_WIDTH, SCREEN_HEIGHT - GROUND_Y, GREEN);
+    // Рисуем залитый треугольник
+    DrawTriangle(points[0], points[1], points[2], player.color);
     
-    // Отрисовка шарика
-    DrawCircleV(state->ball.position, BALL_RADIUS, state->ball.color);
-    DrawCircleLines(state->ball.position.x, state->ball.position.y, BALL_RADIUS, DARKGRAY);
+    // Рисуем контур
+    DrawTriangleLines(points[0], points[1], points[2], 
+                     BLUE); // Темнее на 50%
     
-    // Отрисовка счета
-    DrawText(TextFormat("Score: %d", state->score), 10, 10, 30, DARKGRAY);
-    
-    // Управление
-    DrawText("Управление: СТРЕЛКИ - движение, ПРОБЕЛ - прыжок, R - рестарт", 10, SCREEN_HEIGHT - 30, 20, GRAY);
-    
-    // Отрисовка состояния игры
-    if (!state->ball.is_on_ground) {
-        DrawText("В ВОЗДУХЕ!", SCREEN_WIDTH/2 - 60, 50, 30, BLUE);
-    }
-    
-    if (state->game_over) {
-        DrawText("ИГРА ОКОНЧЕНА!", SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT/2 - 20, 40, RED);
-        DrawText("Нажми R для рестарта", SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT/2 + 30, 30, DARKGRAY);
-    }
+    // Центр игрока (маленький кружок, опционально)
+    // DrawCircleV(player.position, 3, RED);
 }
