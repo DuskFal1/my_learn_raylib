@@ -18,6 +18,6 @@ typedef struct {
 } Player;
 
 Player CreatePlayer(Vector2 startPosition, float size, Color color);
-void gameDraw();
+void gameScore();
 void DrawPlayer(Player player);
 #endif

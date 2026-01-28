@@ -8,19 +8,19 @@ int main(void) {
 
     // 3. Создаем игрока
     Player player = CreatePlayer(
-        (Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT/2},  // Начальная позиция
-        30.0f,                                     // Размер
-        BLUE                                       // Цвет
+        (Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT/8*7},   // Начальная позиция
+        30.0f,                                          // Размер
+        BLUE                                            // Цвет
     );
     
     // Главный игровой цикл
     while (!WindowShouldClose()) {
         // Отрисовка
         BeginDrawing();
-            ClearBackground(RAYWHITE);
+            ClearBackground(BLACK);
             // Рисуем игрока
             DrawPlayer(player);
-            gameDraw();
+            gameScore();
             
         EndDrawing();
     }

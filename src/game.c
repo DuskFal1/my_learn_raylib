@@ -2,10 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 
-void gameDraw(){
-    //DrawText("Hello", SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 20, BLACK);
-
-    
+void gameScore(){
+    DrawText("Score: ", 10, 10, 20, WHITE);    
 }
 
 Player CreatePlayer(Vector2 startPosition, float size, Color color) {
@@ -41,9 +39,5 @@ void DrawPlayer(Player player) {
     DrawTriangle(points[0], points[1], points[2], player.color);
     
     // Рисуем контур
-    DrawTriangleLines(points[0], points[1], points[2], 
-                     BLUE); // Темнее на 50%
-    
-    // Центр игрока (маленький кружок, опционально)
-    // DrawCircleV(player.position, 3, RED);
+    DrawTriangleLines(points[0], points[1], points[2], RED);
 }
