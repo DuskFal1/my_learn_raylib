@@ -9,7 +9,7 @@ void gameScore(){
 Player CreatePlayer(Vector2 startPosition, float size, Color color) {
         Player player = {
             .position = startPosition,
-            .angle = -1.5708f,       // Смотрит вправо
+            .angle = -1.5708f,       // Смотрит вверх
             .size = size,
             .color = color
         };
@@ -40,4 +40,44 @@ void DrawPlayer(Player player) {
     
     // Рисуем контур
     DrawTriangleLines(points[0], points[1], points[2], RED);
+}
+
+//Перемещение игрока
+void UpdatePlayer(Player *player){
+    //Вправо
+    if (IsKeyPressed(KEY_RIGHT) || IsKeyDown(KEY_RIGHT))
+    {
+        player->position.x += 5;
+        if (player->position.x >= SCREEN_WIDTH - 20)
+        {
+            player->position.x = SCREEN_WIDTH - 20;
+        }                  
+    }
+    //Влево
+    if (IsKeyPressed(KEY_LEFT) || IsKeyDown(KEY_LEFT))
+    {
+        player->position.x -= 5;
+        if (player->position.x <= 20)
+        {
+            player->position.x = 20;
+        } 
+    }
+    //Вверх
+    if (IsKeyPressed(KEY_UP) || IsKeyDown(KEY_UP))
+    {
+        player->position.y -= 5;
+        if (player->position.y <= 80)
+        {
+            player->position.y = 80;
+        }              
+    }
+    //Вниз
+    if (IsKeyPressed(KEY_DOWN) || IsKeyDown(KEY_DOWN))
+    {
+        player->position.y += 5;
+        if (player->position.y >= SCREEN_HEIGHT - 25)
+        {
+            player->position.y = SCREEN_HEIGHT - 25;
+        }
+    }  
 }
