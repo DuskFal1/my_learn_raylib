@@ -3,19 +3,6 @@
 #include <math.h>
 #include <player.h>
 
-
-
-// Присваеваем значения структуре Score
-Score CreateGameScore(Vector2 scorePosition, float size, Color color){
-        Score score = {
-            .position = scorePosition,
-            .count = 0,
-            .size = size,
-            .color = color
-        };
-    return score;      
-}
-
 //Рисуем игровые текстуры
 void DrawGame(void){
     DrawRectangle(0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, 20, RED);
@@ -29,17 +16,6 @@ void Game(Player *player, Score *score){
         score->count = 0;
     }
 }
-
-//Рисуем очки
-void GameScore(Score *score){
-    DrawText(TextFormat("Score: %d", score->count), score->position.x, score->position.y, 20, score->color);
-    if (IsKeyPressed(KEY_SPACE))
-    {
-        score->count++;
-    }  
-}
-
-
 
 void GameTestPosition(Player player){
     DrawText(TextFormat("Position X: %d", (int)player.position.x), SCREEN_WIDTH -200, 10, 20, WHITE);
