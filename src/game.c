@@ -3,8 +3,6 @@
 #include <math.h>
 #include <player.h>
 
-
-
 // Присваеваем значения структуре Score
 Score CreateGameScore(Vector2 scorePosition, float size, Color color){
         Score score = {
@@ -38,8 +36,6 @@ void GameScore(Score *score){
         score->count++;
     }  
 }
-
-
 
 void GameTestPosition(Player player){
     DrawText(TextFormat("Position X: %d", (int)player.position.x), SCREEN_WIDTH -200, 10, 20, WHITE);
