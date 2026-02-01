@@ -13,9 +13,7 @@ typedef struct {
     Color color;
 } Score;
 
-
 Score CreateGameScore(Vector2 scorePosition, float size, Color color);
 void GameScore(Score *score);
-
 
 #endif

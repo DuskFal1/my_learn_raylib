@@ -7,14 +7,8 @@
 
 // Константы игры
 #define FPS 60
-#define TREANGLE_RADIUS 20
-
-
-
 
 void DrawGame(void);
-
 void GameTestPosition(Player player);
-
 void Game(Player *player, Score *score);
 #endif

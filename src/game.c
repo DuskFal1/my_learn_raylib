@@ -1,12 +1,5 @@
-#include "game.h"
-#include <stdio.h>
-#include <math.h>
+#include <game.h>
 #include <player.h>
-
-//Рисуем игровые текстуры
-void DrawGame(void){
-    DrawRectangle(0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, 20, RED);
-}
 
 //Тут будет немного функционала и логики
 void Game(Player *player, Score *score){
