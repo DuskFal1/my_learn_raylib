@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <raylib.h>
+#include <player.h>
 
 // Константы игры
 #define SCREEN_WIDTH 800
@@ -9,13 +10,7 @@
 #define FPS 60
 #define TREANGLE_RADIUS 20
 
-// Структура игрока 
-typedef struct {
-    Vector2 position;    // Позиция на экране
-    float size;          // Размер треугольника
-    float angle;         // Наклон
-    Color color;         // Цвет
-} Player;
+
 
 typedef struct {
     Vector2 position;
@@ -24,13 +19,12 @@ typedef struct {
     Color color;
 } Score;
 
-Player CreatePlayer(Vector2 startPosition, float size, Color color);
+
 Score CreateGameScore(Vector2 scorePosition, float size, Color color);
 
 void DrawGame(void);
 void GameScore(Score *score);
 void GameTestPosition(Player player);
-void DrawPlayer(Player player);
-void UpdatePlayer(Player *player);
+
 void Game(Player *player, Score *score);
 #endif
