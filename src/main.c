@@ -13,6 +13,14 @@ int main(void) {
         BLUE                                            // Цвет
     );
 
+    Bullets bullets = CreateBullets(
+        (Vector2){player.position.x, player.position.y + 50},
+        1,
+        3,
+        20,
+        GREEN
+    );
+
     //Создаем счет
     Score score = CreateGameScore(
         (Vector2){20, 20},
@@ -31,6 +39,7 @@ int main(void) {
             GameTestPosition(player);       // Проверка позиции для отладки
             GameScore(&score);              // Рисуем счет
             Game(&player, &score);
+            DrawBullets(&bullets);
         EndDrawing();
     }
     

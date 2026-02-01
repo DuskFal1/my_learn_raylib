@@ -3,6 +3,7 @@
 
 #include <raylib.h>
 #include <player.h>
+#include <bullets.h>
 #include <ui.h>
 
 // Константы игры
