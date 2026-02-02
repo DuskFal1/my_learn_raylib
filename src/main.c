@@ -14,10 +14,11 @@ int main(void) {
     );
 
     Bullets bullets = CreateBullets(
-        (Vector2){player.position.x, player.position.y + 50},
-        1,
-        3,
-        20,
+        (Vector2){player.position.x, player.position.y - 50},
+        (Vector2){player.position.x, player.position.y - 50},
+        2,
+        4,
+        300,
         GREEN
     );
 
@@ -30,16 +31,19 @@ int main(void) {
 
     // Главный игровой цикл
     while (!WindowShouldClose()) {
+        UpdatePlayer(&player);          // Изменение позиции игрока
+        DrawUpdateBullets(&bullets, &player);
         // Отрисовка
         BeginDrawing();
             ClearBackground(BLACK);         // Заливаем фон черным
             DrawGame();                     // Рисуем игровой экран
             DrawPlayer(player);             // Рисуем игрока
-            UpdatePlayer(&player);          // Изменение позиции игрока
+            GameTestPositionBullets(bullets);
             GameTestPosition(player);       // Проверка позиции для отладки
             GameScore(&score);              // Рисуем счет
             Game(&player, &score);
-            DrawBullets(&bullets);
+            DrawBullets(&bullets, &player);
+            
         EndDrawing();
     }
     

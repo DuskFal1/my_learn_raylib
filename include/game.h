@@ -11,5 +11,6 @@
 
 void DrawGame(void);
 void GameTestPosition(Player player);
+void GameTestPositionBullets(Bullets bullets);
 void Game(Player *player, Score *score);
 #endif
