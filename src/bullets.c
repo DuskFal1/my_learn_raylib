@@ -30,7 +30,8 @@ void DrawBullets(Bullets *bullets, Player *player){
     }     
 }
 
-void DrawUpdateBullets(Bullets *bullets, Player *player){
+// Обновление позиции пули
+void UpdateBullets(Bullets *bullets, Player *player){
 if (IsKeyPressed(KEY_SPACE))
     {   
         bullets->isActive = true;                       

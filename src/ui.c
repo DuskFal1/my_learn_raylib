@@ -13,7 +13,8 @@ Score CreateGameScore(Vector2 scorePosition, float size, Color color){
 
 //Рисуем игровые текстуры
 void DrawGame(void){
-    DrawRectangle(0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, 20, RED); // Красная заливка снизу
+    ClearBackground(BLACK);                                         // Заливаем фон черным
+    DrawRectangle(0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, 20, RED);    // Красная заливка снизу
 }
 
 //Рисуем очки

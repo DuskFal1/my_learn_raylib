@@ -12,7 +12,6 @@ typedef struct {
 } Player;
 
 Player CreatePlayer(Vector2 startPosition, float size, Color color);
-
 void DrawPlayer(Player player);
 void UpdatePlayer(Player *player);
 

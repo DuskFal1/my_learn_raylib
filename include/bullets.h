@@ -14,6 +14,6 @@ typedef struct {
 
 Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color color);
 void DrawBullets(Bullets *bullets, Player *player);
-void DrawUpdateBullets(Bullets *bullets, Player *player);
+void UpdateBullets(Bullets *bullets, Player *player);
 
 #endif
