@@ -15,7 +15,6 @@ int main(void) {
 
     Bullets bullets = CreateBullets(
         (Vector2){player.position.x, player.position.y - 50},
-        (Vector2){player.position.x, player.position.y - 50},
         2,
         4,
         300,

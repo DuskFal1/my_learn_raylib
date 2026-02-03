@@ -3,9 +3,8 @@
 #include "game.h"
 #include "player.h"
 
-Bullets CreateBullets(Vector2 startPosition, Vector2 position, int sizeX, int sizeY, float speed, Color color){
+Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color color){
     Bullets bullets = {
-        .startPosition = startPosition,
         .position = position,
         .sizeX = sizeX,
         .sizeY = sizeY,
