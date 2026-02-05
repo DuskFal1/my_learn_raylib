@@ -1,5 +1,6 @@
 # Игнорируемые файлы
 build/
+output/
 *.o
 *.out
 my_game

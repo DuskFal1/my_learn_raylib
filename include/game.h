@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <raylib.h>
-#include <player.h>
-#include <bullets.h>
-#include <ui.h>
+#include "raylib.h"
+#include "player.h"
+#include "bullets.h"
+#include "ui.h"
 
 typedef struct {
     Player player;
@@ -20,8 +20,7 @@ typedef struct {
 GameState InitGame(void);
 
 void RenderGame(const GameState* game);
-void UpdateGame(GameState* game);
-void DrawGame(void);
-void TestGame(Player player, Bullets bullets);
-void Game(Player *player, Score *score, Bullets* bullets);
+void UpdateGame(GameState* game, float delta_time);
+void TestGame(const Player* player, const Bullets* bullets);
+void Game(Player* player, Score* score, Bullets* bullets);
 #endif

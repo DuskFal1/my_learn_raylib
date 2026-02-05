@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "🔨 Компиляция игры..."
-clang src/main.c src/game.c -o my_game \
+clang src/main.c src/game.c src/bullets.c src/enemy.c src/player.c src/ui.c -o my_game \
     -I./include \
     -I/opt/homebrew/include \
     -L/opt/homebrew/lib \

@@ -10,12 +10,12 @@ int main(void) {
 
     // Главный игровой цикл
     while (!WindowShouldClose()) {
-        
-        UpdateGame(&game);
+        float delta_time = GetFrameTime();        
+        UpdateGame(&game, delta_time);
         // Отрисовка
         BeginDrawing();
             RenderGame(&game);
-            TestGame(game.player, game.bullets);
+            TestGame(&game.player, &game.bullets);
         EndDrawing();
     }
     

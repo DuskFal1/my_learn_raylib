@@ -48,7 +48,7 @@ void RenderGame(const GameState* game){
 }
 
 // Обновляем экран
-void UpdateGame(GameState* game){
+void UpdateGame(GameState* game, float delta_time){
     Game(&game->player, &game->score, &game->bullets);  // Логика
     UpdatePlayer(&game->player);                        // Изменение позиции игрока
     UpdateBullets(&game->bullets, &game->player);       // Изменение позиции пули
@@ -56,11 +56,13 @@ void UpdateGame(GameState* game){
 }
 
 // Тесты
-void TestGame(Player player, Bullets bullets){
+void TestGame(const Player* player,const Bullets* bullets){
+    //FPS
+    DrawText(TextFormat("FPS: %d", GetFPS()), SCREEN_WIDTH -200, 10, 20, WHITE);
     // Позиция игрока
-    DrawText(TextFormat("Position X: %d", (int)player.position.x), SCREEN_WIDTH -200, 10, 20, WHITE);
-    DrawText(TextFormat("Position Y: %d", (int)player.position.y), SCREEN_WIDTH -200, 30, 20, WHITE);
+    DrawText(TextFormat("Position X: %d", (int)player->position.x), SCREEN_WIDTH -200, 30, 20, WHITE);
+    DrawText(TextFormat("Position Y: %d", (int)player->position.y), SCREEN_WIDTH -200, 50, 20, WHITE);
     // Позиция пули
-    DrawText(TextFormat("B_Position X %d", (int)bullets.position.x),SCREEN_WIDTH -200, 50, 20, WHITE);
-    DrawText(TextFormat("B_Position Y %d", (int)bullets.position.y),SCREEN_WIDTH -200, 70, 20, WHITE);
+    DrawText(TextFormat("B_Position X %d", (int)bullets->position.x),SCREEN_WIDTH -200, 70, 20, WHITE);
+    DrawText(TextFormat("B_Position Y %d", (int)bullets->position.y),SCREEN_WIDTH -200, 90, 20, WHITE);
 }

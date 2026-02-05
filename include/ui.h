@@ -14,6 +14,8 @@ typedef struct {
 } Score;
 
 Score CreateGameScore(float size, Color color);
+
+void DrawGame(void);
 void DrawScore(const Score* score);
 void UpdateScore(Score* score);
 
