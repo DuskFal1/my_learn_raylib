@@ -1,7 +1,6 @@
-#include <player.h>
-#include <game.h>
-#include <stdio.h>
-#include <math.h>
+#include "player.h"
+#include "math.h"
+#include "ui.h"
 
 // Присваеваем значения структуре Player
 Player CreatePlayer(Vector2 startPosition, float size, Color color) {

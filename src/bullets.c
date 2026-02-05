@@ -1,7 +1,5 @@
 #include "bullets.h"
 #include "player.h"
-#include "game.h"
-#include "player.h"
 
 Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color color){
     Bullets bullets = {
@@ -16,33 +14,33 @@ Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color
 }
 
 //Рисуем пулю с прицелом
-void DrawBullets(Bullets *bullets, Player *player){
+void DrawBullets(const Bullets bullets){   
+    // Отрисовываем только если пуля активна
+    if (bullets.isActive) {
+        DrawRectangle(bullets.position.x, bullets.position.y, bullets.sizeX, bullets.sizeY, bullets.color);
+    }     
+}
+
+// Обновление позиции пули
+void UpdateBullets(Bullets *bullets, Player *player){
     //Отрисовываем если не активна
     if (!bullets->isActive) {
         bullets->position.x = player->position.x - bullets->sizeX / 2;
         bullets->position.y = player->position.y - 33;
         DrawRectangle(bullets->position.x, bullets->position.y, bullets->sizeX, bullets->sizeY, bullets->color);
     }
-    
-    // Отрисовываем только если пуля активна
-    if (bullets->isActive) {
-        DrawRectangle(bullets->position.x, bullets->position.y, bullets->sizeX, bullets->sizeY, bullets->color);
-    }     
-}
-
-// Обновление позиции пули
-void UpdateBullets(Bullets *bullets, Player *player){
-if (IsKeyPressed(KEY_SPACE))
-    {   
-        bullets->isActive = true;                       
-    }
-    if (bullets->isActive)
+    // Выстрел
+    if (IsKeyPressed(KEY_SPACE))
+        {   
+            bullets->isActive = true;                       
+        }
+        if (bullets->isActive)
+            {
+                bullets->position.y -= bullets->speed * GetFrameTime();  
+            } 
+        if (bullets->position.y + bullets->sizeY <= 0)
         {
-            bullets->position.y -= bullets->speed * GetFrameTime();  
-        } 
-    if (bullets->position.y + bullets->sizeY <= 0)
-    {
-        bullets->position = player->position;
-        bullets->isActive = false;
-    }
+            bullets->position = player->position;
+            bullets->isActive = false;
+        }
 }

@@ -13,7 +13,8 @@ typedef struct {
     Color color;
 } Score;
 
-Score CreateGameScore(Vector2 scorePosition, float size, Color color);
-void GameScore(Score *score);
+Score CreateGameScore(float size, Color color);
+void DrawScore(const Score* score);
+void UpdateScore(Score* score);
 
 #endif
