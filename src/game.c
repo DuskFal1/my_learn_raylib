@@ -9,7 +9,7 @@ GameState InitGame(void){
     GameState game = {0};
     // Создаем игрока
     game.player = CreatePlayer(
-        startPosition,   // Начальная позиция
+        startPosition,                                  // Начальная позиция
         30.0f,                                          // Размер
         BLUE                                            // Цвет
     );
