@@ -15,10 +15,7 @@ Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color
 
 //Рисуем пулю с прицелом
 void DrawBullets(const Bullets bullets){   
-    // Отрисовываем только если пуля активна
-    if (bullets.isActive) {
-        DrawRectangle(bullets.position.x, bullets.position.y, bullets.sizeX, bullets.sizeY, bullets.color);
-    }     
+        DrawRectangle(bullets.position.x, bullets.position.y, bullets.sizeX, bullets.sizeY, bullets.color);       
 }
 
 // Обновление позиции пули

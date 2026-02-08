@@ -6,11 +6,17 @@
 #include "bullets.h"
 #include "ui.h"
 
+typedef enum{
+    GAME_STATE_PLAYING,
+    GAME_STATE_PAUSED
+} GameStateType;
+
 typedef struct {
+    GameStateType game_state;
     Player player;
     Bullets bullets;
     Score score;
-    bool game_over;
+    bool isPause;
     int level;
 } GameState;
 
@@ -21,6 +27,8 @@ GameState InitGame(void);
 
 void RenderGame(const GameState* game);
 void UpdateGame(GameState* game, float delta_time);
+void UpdateGamePlayed(GameState* game);
+void DrawPause(const GameState* game);
 void TestGame(const Player* player, const Bullets* bullets);
 void Game(Player* player, Score* score, Bullets* bullets);
 #endif
