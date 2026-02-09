@@ -30,7 +30,7 @@ build_dir:
 
 # Копирование игровых ресурсов
 copy_assets:
-	@if exist "$(ASSETS_DIR)" xcopy "$(ASSETS_DIR)" "build\assets" /E /I /Y >nul 2>&1 && $(UTF8) echo   РЕСУРСЫ СКОПИРОВАНЫ || $(UTF8) echo   ПАПКА ASSETS НЕ НАЙДЕНА
+	@if exist "$(ASSETS_DIR)" xcopy "$(ASSETS_DIR)" "build\assets" /E /I /Y >nul 2>&1 && $(UTF8) echo   РЕСУРСЫ СКОПИРОВАНЫ
 
 # Основная сборка
 $(TARGET): $(OBJS) copy_assets
