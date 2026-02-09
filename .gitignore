@@ -11,6 +11,12 @@ my_game
 *~
 .vscode/
 .idea/
+game
+game.exe
+
+# Windows
+*.dll
+*.exe
 
 # Ресурсы (можно хранить в Git если маленькие, но обычно лучше отдельно)
 assets/textures/*.png

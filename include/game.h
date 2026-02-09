@@ -27,7 +27,7 @@ GameState InitGame(void);
 
 void RenderGame(const GameState* game);
 void UpdateGame(GameState* game, float delta_time);
-void UpdateGamePlayed(GameState* game);
+void UpdateGamePlayed(GameState* game, float delta_time);
 void DrawPause(const GameState* game);
 void TestGame(const Player* player, const Bullets* bullets);
 void Game(Player* player, Score* score, Bullets* bullets);

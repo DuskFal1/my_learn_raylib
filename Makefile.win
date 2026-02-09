@@ -1,0 +1,79 @@
+# ================================================
+# Makefile для сборки игры на Raylib (UTF-8 версия)
+# ================================================
+
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11 -IC:/raylib/include -I./include
+LIBS = C:/raylib/lib/libraylib.a -lopengl32 -lgdi32 -lwinmm
+TARGET = game.exe
+
+SRCS = $(wildcard src/*.c)
+OBJS = $(patsubst src/%.c, build/%.o, $(SRCS))
+DEPS = $(OBJS:.o=.d)
+ASSETS_DIR = assets
+
+# Устанавливаем кодировку UTF-8 для русского текста
+UTF8 = chcp 65001 >nul &
+
+# ================================================
+# ЦЕЛИ СБОРКИ
+# ================================================
+
+all: build_dir $(TARGET)
+
+# Создание структуры проекта
+build_dir:
+	@if not exist build mkdir build
+	@$(UTF8) echo ----------------------------------------
+	@$(UTF8) echo   ПАПКА СБОРКИ СОЗДАНА
+	@$(UTF8) echo ----------------------------------------
+
+# Копирование игровых ресурсов
+copy_assets:
+	@if exist "$(ASSETS_DIR)" xcopy "$(ASSETS_DIR)" "build\assets" /E /I /Y >nul 2>&1 && $(UTF8) echo   РЕСУРСЫ СКОПИРОВАНЫ || $(UTF8) echo   ПАПКА ASSETS НЕ НАЙДЕНА
+
+# Основная сборка
+$(TARGET): $(OBJS) copy_assets
+	$(CC) $(OBJS) -o $@ $(LIBS)
+	@$(UTF8) echo ----------------------------------------
+	@$(UTF8) echo   ИГРА УСПЕШНО СОБРАНА!
+	@$(UTF8) echo   Файлов: $(words $(SRCS))
+	@$(UTF8) echo ----------------------------------------
+
+# Компиляция исходного кода
+build/%.o: src/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Запуск игры
+run: $(TARGET)
+	@$(UTF8) echo ========================================
+	@$(UTF8) echo   ЗАПУСК ИГРЫ...
+	@$(UTF8) echo ========================================
+	$(TARGET)
+
+# Очистка проекта
+clean:
+	@if exist build rmdir /S /Q build
+	@if exist $(TARGET) del $(TARGET)
+	@$(UTF8) echo ----------------------------------------
+	@$(UTF8) echo   ПРОЕКТ ОЧИЩЕН
+	@$(UTF8) echo ----------------------------------------
+
+# Пересборка
+rebuild: clean all
+
+# Справка
+help:
+	@$(UTF8) echo ========================================
+	@$(UTF8) echo   КОМАНДЫ ДЛЯ СБОРКИ ИГРЫ:
+	@$(UTF8) echo ========================================
+	@$(UTF8) echo   mingw32-make -f Makefile.win
+	@$(UTF8) echo   mingw32-make -f Makefile.win run
+	@$(UTF8) echo   mingw32-make -f Makefile.win clean
+	@$(UTF8) echo   mingw32-make -f Makefile.win rebuild
+	@$(UTF8) echo   mingw32-make -f Makefile.win help
+	@$(UTF8) echo ========================================
+
+-include $(DEPS)
+
+.PHONY: all run clean rebuild help build_dir copy_assets

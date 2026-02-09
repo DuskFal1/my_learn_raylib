@@ -40,11 +40,11 @@ void DrawPlayer(Player player) {
 }
 
 //Перемещение игрока
-void UpdatePlayer(Player *player){
+void UpdatePlayer(Player *player, float delta_time){
     //Вправо
     if (IsKeyPressed(KEY_RIGHT) || IsKeyDown(KEY_RIGHT))
     {
-        player->position.x += 5;
+        player->position.x += 300 * delta_time;
         if (player->position.x >= SCREEN_WIDTH - 20)
         {
             player->position.x = SCREEN_WIDTH - 20;
@@ -53,7 +53,7 @@ void UpdatePlayer(Player *player){
     //Влево
     if (IsKeyPressed(KEY_LEFT) || IsKeyDown(KEY_LEFT))
     {
-        player->position.x -= 5;
+        player->position.x -= 300 * delta_time;
         if (player->position.x <= 20)
         {
             player->position.x = 20;
@@ -62,7 +62,7 @@ void UpdatePlayer(Player *player){
     //Вверх
     if (IsKeyPressed(KEY_UP) || IsKeyDown(KEY_UP))
     {
-        player->position.y -= 5;
+        player->position.y -= 300 * delta_time;
         if (player->position.y <= 80)
         {
             player->position.y = 80;
@@ -71,7 +71,7 @@ void UpdatePlayer(Player *player){
     //Вниз
     if (IsKeyPressed(KEY_DOWN) || IsKeyDown(KEY_DOWN))
     {
-        player->position.y += 5;
+        player->position.y += 300 * delta_time;
         if (player->position.y >= SCREEN_HEIGHT - 45)
         {
             player->position.y = SCREEN_HEIGHT - 45;

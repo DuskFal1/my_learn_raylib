@@ -65,7 +65,7 @@ void UpdateGame(GameState* game, float delta_time){
     switch (game->game_state)
     {
     case GAME_STATE_PLAYING:
-        UpdateGamePlayed(game);
+        UpdateGamePlayed(game, delta_time);
         break;
     case GAME_STATE_PAUSED:
         break;
@@ -74,17 +74,21 @@ void UpdateGame(GameState* game, float delta_time){
     }
 }
 
-void UpdateGamePlayed(GameState* game){
+void UpdateGamePlayed(GameState* game, float delta_time){
+     
     Game(&game->player, &game->score, &game->bullets);  // Логика
-    UpdatePlayer(&game->player);                        // Изменение позиции игрока
-    UpdateBullets(&game->bullets, &game->player);       // Изменение позиции пули
+    UpdatePlayer(&game->player, delta_time);                        // Изменение позиции игрока
+    UpdateBullets(&game->bullets, &game->player, delta_time);       // Изменение позиции пули
     UpdateScore(&game->score);                          // Обновляем счет
 }
 
 // Обработка паузы
 void DrawPause(const GameState* game){
-    DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, (Color){0,0,0, 128});
-    DrawText("PAUSE", SCREEN_WIDTH/2 - 35, SCREEN_HEIGHT/2, 20, WHITE);
+    if (game->game_state == GAME_STATE_PAUSED){
+        DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, (Color){0,0,0, 128});
+        DrawText("PAUSE", SCREEN_WIDTH/2 - 35, SCREEN_HEIGHT/2, 20, WHITE);
+    }
+    
 }
 
 // Тут будет немного функционала и логики

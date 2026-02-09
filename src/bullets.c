@@ -19,10 +19,10 @@ void DrawBullets(const Bullets bullets){
 }
 
 // Обновление позиции пули
-void UpdateBullets(Bullets *bullets, Player *player){
+void UpdateBullets(Bullets *bullets, Player *player, float delta_time){
     //Отрисовываем если не активна
     if (!bullets->isActive) {
-        bullets->position.x = player->position.x - bullets->sizeX / 2;
+        bullets->position.x = player->position.x - bullets->sizeX / 2 * delta_time;
         bullets->position.y = player->position.y - 33;
         DrawRectangle(bullets->position.x, bullets->position.y, bullets->sizeX, bullets->sizeY, bullets->color);
     }
@@ -33,7 +33,7 @@ void UpdateBullets(Bullets *bullets, Player *player){
         }
         if (bullets->isActive)
             {
-                bullets->position.y -= bullets->speed * GetFrameTime();  
+                bullets->position.y -= bullets->speed * delta_time;  
             } 
         if (bullets->position.y + bullets->sizeY <= 0)
         {
