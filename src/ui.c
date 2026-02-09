@@ -3,11 +3,11 @@
 // Присваеваем значения структуре Score
 Score CreateGameScore(float size, Color color){
         Score score = {
-            .position = {20, 20},
+            .position = {20, 10},
             .count = 0,
             .size = size,
             .color = color
-        };
+        };        
     return score;      
 }
 
@@ -28,4 +28,10 @@ if (IsKeyPressed(KEY_SPACE))
     {
         score->count++;
     } 
+}
+
+// Тесты
+void TestGame(){
+    //FPS
+    DrawText(TextFormat("FPS: %d", GetFPS()), SCREEN_WIDTH - 95, 10, 20, WHITE);
 }

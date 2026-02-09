@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 int main(void) {
+    SetTraceLogLevel(LOG_INFO);  // или LOG_DEBUG, LOG_WARNING, LOG_ERROR
     // Инициализация окна
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "My First Game!");
     SetTargetFPS(FPS);

@@ -5,19 +5,22 @@
 #include "player.h"
 #include "bullets.h"
 #include "ui.h"
+#include "menu.h"
 
 typedef enum{
     GAME_STATE_PLAYING,
-    GAME_STATE_PAUSED
+    GAME_STATE_START_MENU,
+    GAME_STATE_PAUSED,
+    GAME_STATE_GAMEOVER
 } GameStateType;
 
 typedef struct {
     GameStateType game_state;
+    StartMenu menu;
     Player player;
     Bullets bullets;
     Score score;
-    bool isPause;
-    int level;
+    int level;    
 } GameState;
 
 // Константы игры
@@ -25,10 +28,14 @@ typedef struct {
 
 GameState InitGame(void);
 
+
+
 void RenderGame(const GameState* game);
 void UpdateGame(GameState* game, float delta_time);
 void UpdateGamePlayed(GameState* game, float delta_time);
 void DrawPause(const GameState* game);
-void TestGame(const Player* player, const Bullets* bullets);
-void Game(Player* player, Score* score, Bullets* bullets);
+void UpdatePause(GameState* game);
+void DrawGameOver(const GameState* game);
+void UpdateGameOver(GameState* game);
+void ResetGame(GameState *game);
 #endif

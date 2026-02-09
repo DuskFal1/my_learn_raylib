@@ -1,7 +1,8 @@
 #ifndef UI_H
 #define UI_H
 
-#include <raylib.h>
+#include "raylib.h"
+
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -18,5 +19,6 @@ Score CreateGameScore(float size, Color color);
 void DrawGame(void);
 void DrawScore(const Score* score);
 void UpdateScore(Score* score);
+void TestGame();
 
 #endif
