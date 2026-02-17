@@ -25,11 +25,7 @@ GameState InitGame(void){
         GREEN                                                           // Цвет
     );
     
-    // Создаем счет
-    game.score = CreateGameScore(
-        20,                                                             // Размер
-        WHITE                                                           // Цвет
-    );
+    game.score = InitScore();
 
     return game;
 }

@@ -11,6 +11,16 @@ Score CreateGameScore(float size, Color color){
     return score;      
 }
 
+Score InitScore(void){
+    Score score = {0};
+    score = CreateGameScore(
+        20,                                                             // Размер
+        WHITE
+    );
+
+    return score;
+}
+
 // Рисуем игровые текстуры
 void DrawGame(void){
     ClearBackground(BLACK);                                         // Заливаем фон черным
