@@ -9,15 +9,8 @@ GameState InitGame(void){
     GameState game = {0};
     game.game_state = GAME_STATE_START_MENU;
 
-    // Создаем пулю
-    game.bullets = CreateBullets(
-        (Vector2){PLAYER_START_POSITION.x, PLAYER_START_POSITION.y - 50},               // Начальная позиция
-        2,                                                              // Ширина
-        4,                                                              // Высота
-        300,                                                            // Скорость
-        GREEN                                                           // Цвет
-    );
 
+    game.bullets = InitBullets();
     game.player = InitPlayer();
     game.score = InitScore();
 

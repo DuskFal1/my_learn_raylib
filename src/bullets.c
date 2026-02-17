@@ -1,5 +1,6 @@
 #include "bullets.h"
 #include "player.h"
+#include "config.h"
 
 Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color color){
     Bullets bullets = {
@@ -10,6 +11,19 @@ Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color
         .isActive = false,
         .color = color
     };
+    return bullets;
+}
+
+Bullets InitBullets(void){
+    Bullets bullets = {0};
+        // Создаем пулю
+    bullets = CreateBullets(
+        (Vector2){PLAYER_START_POSITION_X, PLAYER_START_POSITION_Y - 50},               // Начальная позиция
+        2,                                                              // Ширина
+        4,                                                              // Высота
+        300,                                                            // Скорость
+        GREEN                                                           // Цвет
+    );
     return bullets;
 }
 

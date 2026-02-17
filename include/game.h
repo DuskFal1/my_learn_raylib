@@ -6,6 +6,7 @@
 #include "bullets.h"
 #include "ui.h"
 #include "menu.h"
+#include "config.h"
 
 typedef enum{
     GAME_STATE_PLAYING,

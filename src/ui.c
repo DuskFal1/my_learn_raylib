@@ -1,4 +1,5 @@
 #include "ui.h"
+#include "config.h"
 
 // Присваеваем значения структуре Score
 Score CreateGameScore(float size, Color color){

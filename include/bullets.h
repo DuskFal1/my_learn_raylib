@@ -13,6 +13,8 @@ typedef struct {
 }Bullets;
 
 Bullets CreateBullets(Vector2 position, int sizeX, int sizeY, float speed, Color color);
+Bullets InitBullets(void);
+
 void DrawBullets(const Bullets bullets);
 void UpdateBullets(Bullets *bullets, Player *player, float delta_time);
 

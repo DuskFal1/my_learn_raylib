@@ -3,10 +3,6 @@
 
 #include "raylib.h"
 
-
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-
 typedef struct {
     Vector2 position;
     float size;
