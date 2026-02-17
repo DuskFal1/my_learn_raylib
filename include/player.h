@@ -12,6 +12,8 @@ typedef struct {
 } Player;
 
 Player CreatePlayer(Vector2 startPosition, float size, Color color);
+Player InitPlayer(void);
+
 void DrawPlayer(const Player player);
 void UpdatePlayer(Player *player, float delta_time);
 

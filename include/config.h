@@ -1,0 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define PLAYER_START_POSITION ((Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT*0.875f})
+
+#endif

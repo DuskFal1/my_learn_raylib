@@ -3,28 +3,22 @@
 #include "ui.h"
 #include "string.h"
 #include "menu.h"
-
-const Vector2 startPosition = (Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT*0.875f};
+#include "config.h"
 
 GameState InitGame(void){
     GameState game = {0};
     game.game_state = GAME_STATE_START_MENU;
-    // Создаем игрока
-    game.player = CreatePlayer(
-        startPosition,                                  // Начальная позиция
-        30.0f,                                          // Размер
-        BLUE                                            // Цвет
-    );
 
     // Создаем пулю
     game.bullets = CreateBullets(
-        (Vector2){startPosition.x, startPosition.y - 50},               // Начальная позиция
+        (Vector2){PLAYER_START_POSITION.x, PLAYER_START_POSITION.y - 50},               // Начальная позиция
         2,                                                              // Ширина
         4,                                                              // Высота
         300,                                                            // Скорость
         GREEN                                                           // Цвет
     );
-    
+
+    game.player = InitPlayer();
     game.score = InitScore();
 
     return game;
@@ -137,7 +131,7 @@ void ResetGame(GameState *game){
         if (game->game_state == GAME_STATE_GAMEOVER){
             game->game_state = GAME_STATE_PLAYING;
         }  
-        game->player.position = startPosition;
+        game->player.position = PLAYER_START_POSITION;
         game->bullets.isActive = false;
         game->score.count = 0;
     }    

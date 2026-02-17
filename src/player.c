@@ -1,15 +1,27 @@
 #include "player.h"
 #include "math.h"
 #include "ui.h"
+#include "config.h"
 
 // Присваеваем значения структуре Player
 Player CreatePlayer(Vector2 startPosition, float size, Color color) {
-        Player player = {
-            .position = startPosition,
-            .angle = -1.5708f,       // Смотрит вверх
-            .size = size,
-            .color = color
-        };
+    Player player = {
+        .position = startPosition,
+        .angle = -1.5708f,       // Смотрит вверх
+        .size = size,
+        .color = color
+    };   
+    return player;
+}
+
+Player InitPlayer(void){
+    Player player = {0};
+    // Создаем игрока
+    player = CreatePlayer(
+        PLAYER_START_POSITION,                                  // Начальная позиция
+        30.0f,                                          // Размер
+        BLUE                                            // Цвет
+    );
     return player;
 }
 
