@@ -10,31 +10,26 @@ StartMenu CreateStartMenu(void) {
 void DrawStartMenu(const StartMenu* menu){
     ClearBackground((Color){0, 0, 0 , 255});
     if (menu->selection == 0) {
-
-        DrawRectangleLines(SCREEN_WIDTH/2 - 150, 250, 300, 60, WHITE);
+        DrawCircle(SCREEN_WIDTH/2 - 65, 280, 10, WHITE);
+        //DrawRectangleLines(SCREEN_WIDTH/2 - 150, 250, 300, 60, WHITE);
         DrawText("Play", 
                  SCREEN_WIDTH/2 - MeasureText("Play", 40)/2,
                  260, 40, WHITE);
     } else {
-        
-        DrawRectangleLines(SCREEN_WIDTH/2 - 150, 250, 300, 60, GRAY);
         DrawText("Play", 
-                 SCREEN_WIDTH/2 - MeasureText("Play", 40)/2,
-                 260, 40, WHITE);
+             SCREEN_WIDTH/2 - MeasureText("Play", 40)/2,
+             260, 40, GRAY);
     }
 
     if (menu->selection == 1) {
-        DrawRectangle(SCREEN_WIDTH/2 - 150, 330, 300, 60, RED);
-        DrawRectangleLines(SCREEN_WIDTH/2 - 150, 330, 300, 60, WHITE);
-        DrawText("Exit", 
-                 SCREEN_WIDTH/2 - MeasureText("Exit", 40)/2,
-                 340, 40, BLACK);
-    } else {
-        DrawRectangle(SCREEN_WIDTH/2 - 150, 330, 300, 60, RED);
-        DrawRectangleLines(SCREEN_WIDTH/2 - 150, 330, 300, 60, GRAY);
+        DrawCircle(SCREEN_WIDTH/2 - 65, 360, 10, WHITE);
         DrawText("Exit", 
                  SCREEN_WIDTH/2 - MeasureText("Exit", 40)/2,
                  340, 40, WHITE);
+    } else {
+        DrawText("Exit", 
+                 SCREEN_WIDTH/2 - MeasureText("Exit", 40)/2,
+                 340, 40, GRAY);
     }
 }
 
@@ -73,5 +68,4 @@ MenuAction UpdateStartMenu(StartMenu* menu) {
     }
     
     return MENU_ACTION_NONE;
-
 }

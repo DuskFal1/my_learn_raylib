@@ -59,6 +59,8 @@ void RenderGame(const GameState* game){
 
 // Обновляем экран
 void UpdateGame(GameState* game, float delta_time){
+    MenuAction action;
+
     UpdateGameOver(game);
     UpdatePause(game);
     
@@ -67,8 +69,7 @@ void UpdateGame(GameState* game, float delta_time){
         UpdateGamePlayed(game, delta_time);
         break;
     case GAME_STATE_START_MENU:
-        MenuAction action = UpdateStartMenu(&game->menu);
-        
+        action = UpdateStartMenu(&game->menu);
             switch (action) {
                 case MENU_ACTION_START_GAME:
                     // Начать игру - переходим в состояние игры
@@ -91,8 +92,7 @@ void UpdateGame(GameState* game, float delta_time){
         break;
     default:
         break;
-    }
-    
+    }   
 }
 
 void UpdateGamePlayed(GameState* game, float delta_time){
@@ -140,12 +140,9 @@ void ResetGame(GameState *game){
     if(IsKeyPressed(KEY_R)){
         if (game->game_state == GAME_STATE_GAMEOVER){
             game->game_state = GAME_STATE_PLAYING;
-        }
-    
+        }  
         game->player.position = startPosition;
         game->bullets.isActive = false;
         game->score.count = 0;
     }    
 }
-
-
