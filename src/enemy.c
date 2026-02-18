@@ -50,7 +50,7 @@ void UpdateEnemy(Enemy* enemies, int* count, float delta_time){
         if (enemies[i].isActive){
             enemies[i].position.y += enemies[i].speed * delta_time;    
         // Удаляем, если улетели за экран
-            if (enemies[i].position.y > SCREEN_HEIGHT - 50) {
+            if (enemies[i].position.y > SCREEN_HEIGHT + 50) {
                 enemies[i].isActive = false;  // ← Важно: деактивируем!
                 (*count)--;
             }

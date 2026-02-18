@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "config.h"
 #include "game.h"
+#include "enemy.h"
 
 GameState InitGame(void){
     GameState game = {0};
@@ -14,7 +15,7 @@ GameState InitGame(void){
     
     InitEnemies(game.enemy);  // Инициализация врагов
     
-    game.score = InitScore();
+    game.ui.score = InitScore();
 
     return game;
 }
@@ -30,7 +31,8 @@ void RenderGame(const GameState* game){
             DrawPlayer(game->player);                       // Рисуем игрока
             DrawEnemy(game->enemy);                         // Рисуем врагов
             DrawBullets(game->bullets);                     // Рисуем пулю
-            DrawScore(&game->score);                        // Рисуем счет
+            DrawUI(&game->ui);
+            DrawHealths(&game->player);
             break;
         case GAME_STATE_PAUSED:
             DrawPause(game);
@@ -92,8 +94,9 @@ void UpdateGamePlayed(GameState* game, float delta_time){
     UpdateBullets(&game->bullets, &game->player, delta_time);       // Изменение позиции пули
     UpdateEnemy(game->enemy, &game->enemyCount, delta_time);
     SpawnEnemy(game->enemy, &game->enemyCount, &game->enemySpawnTimer, 1.0f, delta_time);// Спавним новых врагов
-            
-    UpdateScore(&game->score);                                      // Обновляем счет
+    CheckBulletsCollision(game);
+    UpdateHealths(&game->player, game->enemy);        
+    UpdateScore(&game->ui.score);                                      // Обновляем счет
 }
 
 // Рисуем паузу
@@ -124,7 +127,11 @@ void DrawGameOver(const GameState* game){
 }
 
 void UpdateGameOver(GameState* game){
-    if (IsKeyPressed(KEY_D)){
+    if (game->enemy->position.y == SCREEN_HEIGHT + 40){
+        game->player.health--;
+    }
+    
+    if (game->player.health == 0){
         if (game->game_state == GAME_STATE_PLAYING){
             game->game_state = GAME_STATE_GAMEOVER;
         }           
@@ -138,6 +145,37 @@ void ResetGame(GameState *game){
         }  
         game->player.position = PLAYER_START_POSITION;
         game->bullets.isActive = false;
-        game->score.count = 0;
+        game->ui.score.count = 0;
+        game->player.health = PLAYER_START_HEALTHS;
+        game->enemyCount = 0;
+        // Деактивируем всех врагов в массиве
+        for (int i = 0; i < MAX_ENEMIES; i++) {
+            game->enemy[i].isActive = false;
+        }
+        // Сбрасываем таймер спавна
+        game->enemySpawnTimer = 0;
     }    
+}
+
+void CheckBulletsCollision(GameState* game){
+    if (!game->bullets.isActive) return;
+
+    Rectangle bulletRect = {
+        game->bullets.position.x - game->bullets.sizeX/2,
+        game->bullets.position.y - game->bullets.sizeY/2,
+        game->bullets.sizeX,
+        game->bullets.sizeY
+    };
+
+    for (int i = 0; i < MAX_ENEMIES; i++){
+        if (game->enemy[i].isActive){
+            if (CheckCollisionCircleRec(game->enemy[i].position, game->enemy[i].size, bulletRect)){
+                game->enemy[i].isActive = false;
+                game->bullets.isActive = false;
+                game->ui.score.count++;
+                game->enemyCount--;
+                break;
+            }   
+        }
+    }
 }

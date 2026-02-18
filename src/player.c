@@ -4,11 +4,12 @@
 #include "config.h"
 
 // Присваеваем значения структуре Player
-Player CreatePlayer(Vector2 startPosition, float size, Color color) {
+Player CreatePlayer(Vector2 startPosition, float size, int health, Color color) {
     Player player = {
         .position = startPosition,
         .angle = -1.5708f,       // Смотрит вверх
         .size = size,
+        .health = health,
         .color = color
     };   
     return player;
@@ -20,7 +21,8 @@ Player InitPlayer(void){
     player = CreatePlayer(
         PLAYER_START_POSITION,                                  // Начальная позиция
         30.0f,                                          // Размер
-        BLUE                                            // Цвет
+        PLAYER_START_HEALTHS,
+        BLUE                                            // Цвет    
     );
     return player;
 }
@@ -89,4 +91,19 @@ void UpdatePlayer(Player *player, float delta_time){
             player->position.y = SCREEN_HEIGHT - 45;
         }
     }  
+}
+
+void DrawHealths(const Player* player){
+    DrawText(TextFormat("Healths: %d", player->health), 20, 40, 20, WHITE);
+}
+
+void UpdateHealths(Player* player, Enemy* enemies){
+    for (int i = 0; i < 10; i++){
+        if (enemies[i].isActive){
+            if (enemies[i].position.y >= SCREEN_HEIGHT - enemies[i].size){    
+                player->health--;
+                enemies[i].isActive = false;
+            } 
+        }   
+    }    
 }

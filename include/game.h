@@ -26,6 +26,7 @@ typedef struct {
     float enemySpawnTimer; 
     Bullets bullets;
     Score score;
+    UI ui;
     int level;    
 } GameState;
 
@@ -43,5 +44,6 @@ void DrawPause(const GameState* game);
 void UpdatePause(GameState* game);
 void DrawGameOver(const GameState* game);
 void UpdateGameOver(GameState* game);
+void CheckBulletsCollision(GameState* game);
 void ResetGame(GameState *game);
 #endif

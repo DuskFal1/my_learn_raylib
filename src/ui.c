@@ -22,6 +22,10 @@ Score InitScore(void){
     return score;
 }
 
+void DrawUI(const UI* ui){
+    DrawScore(&ui->score);
+}
+
 // Рисуем очки
 void DrawScore(const Score* score){
     DrawText(TextFormat("Score: %d", score->count), score->position.x, score->position.y, 20, score->color);    
@@ -29,10 +33,6 @@ void DrawScore(const Score* score){
 
 // Обновляем очки
 void UpdateScore(Score* score){
-if (IsKeyPressed(KEY_SPACE))
-    {
-        score->count++;
-    } 
 }
 
 // Тесты
