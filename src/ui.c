@@ -36,7 +36,7 @@ if (IsKeyPressed(KEY_SPACE))
 }
 
 // Тесты
-void TestGame(){
+void TestGame(void){
     //FPS
     DrawText(TextFormat("FPS: %d", GetFPS()), SCREEN_WIDTH - 95, 10, 20, WHITE);
 }

@@ -2,52 +2,68 @@
 #include "stdlib.h"
 #include "time.h"
 
-Enemy CreateEnemy(Vector2 position, int size, int speed, bool isActive, Color color){
-    Enemy enemy = {
-        .position = position,
-        .size = size,
-        .speed = speed,
-        .color = color,
-        .isActive = isActive
-    };
-    return enemy;
-}
-
-Enemy InitEnemy(void){
-    srand(time(NULL));
+Enemy CreateEnemy(Vector2 position, EnemyType type){
     Enemy enemy = {0};
-    enemy = CreateEnemy(
-        (Vector2){rand() % SCREEN_WIDTH, 10},
-        5,
-        100,
-        false,
-        RED
-    );
+    enemy.position = position;
+    enemy.isActive = true;
+    enemy.type = type;
+
+    switch (type){
+        case ENEMY_TYPE_BASIC:
+            enemy.size = 20;
+            enemy.speed = 100.0f;
+            enemy.color = RED;
+            break;
+        case ENEMY_TYPE_FAST:
+            enemy.size = 20;
+            enemy.speed = 200.0f;
+            enemy.color = GREEN;
+            break;
+        case ENEMY_TYPE_TANK:
+            enemy.size = 20;
+            enemy.speed = 50.0f;
+            enemy.color = BLUE;
+            break;
+    }
+
     return enemy;
 }
 
-void DrawEnemy(const Enemy* enemy, int count){
+void InitEnemies(Enemy* enemies){
+    for (int i = 0; i < MAX_ENEMIES; i++){
+        enemies[i].isActive = false;
+    }   
+}
+
+void DrawEnemy(const Enemy* enemies){
     for (int i = 0; i < MAX_ENEMIES; i++) { 
-        if (enemy[i].isActive){
-            DrawCircle(enemy[i].position.x, enemy[i].position.y, 
-                      enemy[i].size, enemy[i].color); 
+        if (enemies[i].isActive){
+            DrawCircle(enemies[i].position.x, enemies[i].position.y, 
+                      enemies[i].size, enemies[i].color); 
         }         
     }
 }
 
-void UpdateEnemy(Enemy* enemy, int* count, float delta_time){
+void UpdateEnemy(Enemy* enemies, int* count, float delta_time){
     // Обновляем позиции активных врагов
     for (int i = 0; i < MAX_ENEMIES; i++) {
-        if (enemy[i].isActive){
-            enemy[i].position.y += enemy[i].speed * delta_time;    
+        if (enemies[i].isActive){
+            enemies[i].position.y += enemies[i].speed * delta_time;    
         // Удаляем, если улетели за экран
-            if (enemy[i].position.y > SCREEN_HEIGHT + 50) {
-                enemy[i].isActive = false;  // ← Важно: деактивируем!
+            if (enemies[i].position.y > SCREEN_HEIGHT - 50) {
+                enemies[i].isActive = false;  // ← Важно: деактивируем!
                 (*count)--;
             }
         }   
     }
-    SpawnEnemy(enemy, &enemy->enemyCount, &enemy->enemySpawnTimer, 1.0f, delta_time);
+}
+
+// Получение случайного типа врага
+EnemyType GetRandomEnemyType(void) {
+    int r = rand() % 100;
+    if (r < 60) return ENEMY_TYPE_BASIC;      // 60% - обычные
+    if (r < 85) return ENEMY_TYPE_FAST;       // 25% - быстрые
+    return ENEMY_TYPE_TANK;                    // 15% - танки
 }
 
 void SpawnEnemy(Enemy* enemies, int* count, float* spawnTimer, float spawnInterval, float delta_time) {
@@ -59,14 +75,16 @@ void SpawnEnemy(Enemy* enemies, int* count, float* spawnTimer, float spawnInterv
         // Ищем свободное место
         for (int i = 0; i < MAX_ENEMIES; i++) {
             if (!enemies[i].isActive) { 
-                enemies[i].position.x = GetRandomValue(50, GetScreenWidth() - 50);
-                enemies[i].position.y = 10;
-                enemies[i].size = 20;
-                enemies[i].speed = 100.0f;
-                enemies[i].color = RED;
-                enemies[i].isActive = true;
+                // Случайная позиция X
+                float x = GetRandomValue(50, GetScreenWidth() + 50);
+                
+                // Случайный тип врага
+                EnemyType type = GetRandomEnemyType();
+                
+                // Создаем врага
+                enemies[i] = CreateEnemy((Vector2){x, 10}, type);
                 (*count)++;
-                break;   
+                break;
             }
         }
     }

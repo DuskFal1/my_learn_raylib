@@ -11,15 +11,9 @@ GameState InitGame(void){
 
     game.bullets = InitBullets();
     game.player = InitPlayer();
-    // Инициализация врагов - ВАЖНО!
-    game.enemyCount = 0;
-    game.enemySpawnTimer = 0;
     
-    // Заполняем массив врагов
-    for (int i = 0; i < MAX_ENEMIES; i++) {
-        game.enemy[i] = InitEnemy();  // Каждый враг инициализируется
-    }
-
+    InitEnemies(game.enemy);  // Инициализация врагов
+    
     game.score = InitScore();
 
     return game;
@@ -34,7 +28,7 @@ void RenderGame(const GameState* game){
         case GAME_STATE_PLAYING:
             DrawGame();                                     // Рисуем игровой экран
             DrawPlayer(game->player);                       // Рисуем игрока
-            DrawEnemy(&game->enemy, game->enemyCount);                         // Рисуем врагов
+            DrawEnemy(game->enemy);                         // Рисуем врагов
             DrawBullets(game->bullets);                     // Рисуем пулю
             DrawScore(&game->score);                        // Рисуем счет
             break;
@@ -96,8 +90,8 @@ void UpdateGame(GameState* game, float delta_time){
 void UpdateGamePlayed(GameState* game, float delta_time){
     UpdatePlayer(&game->player, delta_time);                        // Изменение позиции игрока
     UpdateBullets(&game->bullets, &game->player, delta_time);       // Изменение позиции пули
-    UpdateEnemy(&game->enemy, &game->enemyCount, delta_time);
-    // Спавним новых врагов
+    UpdateEnemy(game->enemy, &game->enemyCount, delta_time);
+    SpawnEnemy(game->enemy, &game->enemyCount, &game->enemySpawnTimer, 1.0f, delta_time);// Спавним новых врагов
             
     UpdateScore(&game->score);                                      // Обновляем счет
 }

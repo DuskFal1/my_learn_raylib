@@ -6,31 +6,26 @@
 
 #define MAX_ENEMIES 20  // Максимум врагов на экране
 
+typedef enum {
+    ENEMY_TYPE_BASIC,
+    ENEMY_TYPE_FAST,
+    ENEMY_TYPE_TANK
+} EnemyType;
+
 typedef struct {
     Vector2 position;
     bool isActive;
     int size;
     int speed;
-    int count;
-    int enemyCount;               
-    float enemySpawnTimer; 
     Color color;
+    EnemyType type;
 } Enemy;
 
-typedef struct {
-    Enemy* enemies;
-    int count;
-    int maxCount;
-    float spawnTimer;
-    float spawnInterval;
-} EnemySystem;
+Enemy CreateEnemy(Vector2 position, EnemyType type);
+void InitEnemies(Enemy* enemies);
 
-
-Enemy CreateEnemy(Vector2 position, int size, int speed, bool isActive, Color color);
-Enemy InitEnemy(void);
-
-void DrawEnemy(const Enemy* enemy, int count);
-void UpdateEnemy(Enemy* enemy, int* count, float delta_time);
+void DrawEnemy(const Enemy* enemies);
+void UpdateEnemy(Enemy* enemies, int* count, float delta_time);
 void SpawnEnemy(Enemy* enemies, int* count, float* spawnTimer, float spawnInterval, float delta_time);
 
 #endif

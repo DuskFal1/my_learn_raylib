@@ -16,7 +16,7 @@ int main(void) {
         // Отрисовка
         BeginDrawing();
             RenderGame(&game);
-            TestGame(&game.player, &game.bullets);
+            TestGame();
         EndDrawing();
     }
     
