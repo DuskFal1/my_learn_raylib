@@ -1,17 +1,25 @@
-#include "game.h"
 #include "player.h"
 #include "ui.h"
 #include "string.h"
 #include "menu.h"
 #include "config.h"
+#include "game.h"
 
 GameState InitGame(void){
     GameState game = {0};
     game.game_state = GAME_STATE_START_MENU;
 
-
     game.bullets = InitBullets();
     game.player = InitPlayer();
+    // Инициализация врагов - ВАЖНО!
+    game.enemyCount = 0;
+    game.enemySpawnTimer = 0;
+    
+    // Заполняем массив врагов
+    for (int i = 0; i < MAX_ENEMIES; i++) {
+        game.enemy[i] = InitEnemy();  // Каждый враг инициализируется
+    }
+
     game.score = InitScore();
 
     return game;
@@ -26,6 +34,7 @@ void RenderGame(const GameState* game){
         case GAME_STATE_PLAYING:
             DrawGame();                                     // Рисуем игровой экран
             DrawPlayer(game->player);                       // Рисуем игрока
+            DrawEnemy(&game->enemy, game->enemyCount);                         // Рисуем врагов
             DrawBullets(game->bullets);                     // Рисуем пулю
             DrawScore(&game->score);                        // Рисуем счет
             break;
@@ -38,6 +47,12 @@ void RenderGame(const GameState* game){
         default:
             break;
     }    
+}
+
+// Рисуем игровые текстуры
+void DrawGame(void){
+    ClearBackground(BLACK);                                         // Заливаем фон черным
+    DrawRectangle(0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, 20, RED);    // Красная заливка снизу
 }
 
 // Обновляем экран
@@ -81,7 +96,10 @@ void UpdateGame(GameState* game, float delta_time){
 void UpdateGamePlayed(GameState* game, float delta_time){
     UpdatePlayer(&game->player, delta_time);                        // Изменение позиции игрока
     UpdateBullets(&game->bullets, &game->player, delta_time);       // Изменение позиции пули
-    UpdateScore(&game->score);                          // Обновляем счет
+    UpdateEnemy(&game->enemy, &game->enemyCount, delta_time);
+    // Спавним новых врагов
+            
+    UpdateScore(&game->score);                                      // Обновляем счет
 }
 
 // Рисуем паузу

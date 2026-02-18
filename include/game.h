@@ -3,10 +3,12 @@
 
 #include "raylib.h"
 #include "player.h"
+#include "enemy.h"
 #include "bullets.h"
 #include "ui.h"
 #include "menu.h"
 #include "config.h"
+
 
 typedef enum{
     GAME_STATE_PLAYING,
@@ -19,6 +21,9 @@ typedef struct {
     GameStateType game_state;
     StartMenu menu;
     Player player;
+    Enemy enemy[MAX_ENEMIES];     // Массив врагов
+    int enemyCount;               
+    float enemySpawnTimer; 
     Bullets bullets;
     Score score;
     int level;    
