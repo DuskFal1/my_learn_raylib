@@ -3,7 +3,7 @@
 # ================================================
 
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -IC:/raylib/include -I./include
+CFLAGS = -Wall -Wextra -std=c11 -IC:/raylib/include -I./include -mwindows
 LIBS = C:/raylib/lib/libraylib.a -lopengl32 -lgdi32 -lwinmm
 TARGET = game.exe
 
@@ -34,7 +34,7 @@ copy_assets:
 
 # Основная сборка
 $(TARGET): $(OBJS) copy_assets
-	$(CC) $(OBJS) -o $@ $(LIBS)
+	$(CC) $(CFLAGS) -c $< -o $@ $(LIBS)
 	@$(UTF8) echo ----------------------------------------
 	@$(UTF8) echo   ИГРА УСПЕШНО СОБРАНА!
 	@$(UTF8) echo   Файлов: $(words $(SRCS))

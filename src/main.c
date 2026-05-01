@@ -2,25 +2,37 @@
 #include "raylib.h"
 
 int main(void) {
-    SetTraceLogLevel(LOG_INFO);  // или LOG_DEBUG, LOG_WARNING, LOG_ERROR
-    // Инициализация окна
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "My First Game!");
-    SetTargetFPS(FPS);
+    // Устанавливаем уровень детализации логов (можно переключать на DEBUG/INFO/WARNING/ERROR)
+    SetTraceLogLevel(LOG_INFO);
 
+    // -------------------------------------------------
+    // Инициализация окна приложения
+    // -------------------------------------------------
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "My First Game!");
+    SetTargetFPS(FPS);                 // Ограничиваем FPS, чтобы игра шла плавно
+
+    // Создаём полностью инициализированное состояние игры
     GameState game = InitGame();
 
-    // Главный игровой цикл
-    while (!WindowShouldClose()) {
-        float delta_time = GetFrameTime();              
+    // -------------------------------------------------
+    // Главный цикл программы
+    // -------------------------------------------------
+    while (!WindowShouldClose()) {               // Пока пользователь не закрыл окно
+        float delta_time = GetFrameTime();       // Время прошедшее с последнего кадра
+
+        // Обновляем всю логику игры (позиции, состояние, счёт и т.д.)
             UpdateGame(&game, delta_time);
-        // Отрисовка
+
+        // Рендеринг: сначала открываем кадр, потом рисуем всё, затем завершаем
         BeginDrawing();
-            RenderGame(&game);
-            TestGame(&game.player, &game.bullets);
+            RenderGame(&game);                  // Отрисовка текущего состояния (меню, игра, пауза...)
+            TestGame(&game.player, &game.bullets); // Тестовая отладочная функция (может выводить дебаг‑инфо)
         EndDrawing();
     }
     
-    // Закрытие окна
+    // -------------------------------------------------
+    // Выходим из программы, освобождаем ресурсы окна
+    // -------------------------------------------------
     CloseWindow();
     
     return 0;
